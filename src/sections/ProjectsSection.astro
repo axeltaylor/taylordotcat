@@ -1,0 +1,25 @@
+---
+import Project, { ProjectStatus, ProjectType } from '@components/Project.astro'
+import Section from '@components/section/Section.astro'
+import SectionTitle from '@components/section/SectionTitle.astro'
+---
+
+<Section>
+  <SectionTitle>Proyectos</SectionTitle>
+  <ul class="flex flex-col gap-5">
+    <Project
+      status={ProjectStatus.live}
+      type={ProjectType.poc}
+      link="https://github.com/ERNI-Academy/poc-react-webxr"
+    >
+      ERNI - Mole Attack (react + three.js + vr)
+    </Project>
+    <Project
+      status={ProjectStatus.wip}
+      link="https://github.com/axeltaylor/taylordotcat"
+      type={ProjectType.website}
+    >
+      taylor.cat
+    </Project>
+  </ul>
+</Section>

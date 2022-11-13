@@ -1,6 +1,11 @@
 {
-  "extends": ["plugin:astro/recommended", "prettier"],
-  "plugins": ["simple-import-sort", "unused-imports"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:astro/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "unused-imports"],
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
@@ -14,7 +19,9 @@
         "parser": "@typescript-eslint/parser",
         "extraFileExtensions": [".astro"]
       },
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["off"]
+      }
     }
   ]
 }

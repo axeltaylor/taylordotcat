@@ -1,0 +1,51 @@
+---
+import { getImage } from '@astrojs/image'
+import { format } from 'date-fns'
+interface Props {
+  type: 'blog' | 'youtube' | 'github'
+  number?: number
+  title: string
+  url?: string
+  creationDate: Date
+  tags?: string[]
+  featuredImageUrl?: string
+}
+
+const DEFAULT_FEATURED_IMAGE_URL =
+  'https://images.unsplash.com/photo-1667478828745-0b3ec0c3f97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1833&q=80'
+
+const { type, number, title, url, creationDate, tags, featuredImageUrl } =
+  Astro.props
+
+const topText = type === 'blog' ? `#${number}` : type
+const formatedDate = format(creationDate, 'dd.MM.yyyy')
+const tag = tags?.[0]
+const imageUrl = featuredImageUrl || DEFAULT_FEATURED_IMAGE_URL
+const image = await getImage({
+  src: imageUrl,
+  aspectRatio: '119 : 20',
+  height: 160,
+})
+---
+
+<article
+  class="bg-cover bg-no-repeat bg-center rounded overflow-hidden cursor-pointer group border border-not-gray transition-colors"
+  style={`background-image: url(${image.src});`}
+>
+  <a href="#" class="hover:no-underline text-white font-normal">
+    <div
+      class="group-hover:from-gray-900 group-hover:via-gray-900 bg-gradient-to-r from-black via-black p-4 flex flex-col gap-4"
+    >
+      <span
+        class="after:content-[']'] before:content-['['] before:text-not-blue before:font-bold after:text-not-blue after:font-bold"
+        >{topText}</span
+      >
+      <h1 class="text-xl">{title}</h1>
+      <p class="m-0">
+        <time datetime={creationDate.toISOString()}>{formatedDate}</time>
+        {tag && <span class="text-not-blue font-bold"> | </span>}
+        {tag && <span>{tag}</span>}
+      </p>
+    </div>
+  </a>
+</article>

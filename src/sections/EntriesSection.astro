@@ -1,0 +1,26 @@
+---
+import Entry from '@components/Entry.astro'
+import EntryLite from '@components/EntryLite.astro'
+import Section from '@components/section/Section.astro'
+import SectionTitle from '@components/section/SectionTitle.astro'
+---
+
+<Section>
+  <SectionTitle>Entradas</SectionTitle>
+  <div class="flex flex-col gap-5">
+    <Entry
+      title="Lorem ipsum lorem feet"
+      creationDate={new Date()}
+      type={'blog'}
+      number={1}
+      tags={['development']}
+    />
+    <EntryLite
+      title="Lorem ipsum lorem and the cold feet"
+      creationDate={new Date()}
+      type={'youtube'}
+      tags={['development']}
+      url={'https://youtube.com/@taylordotcat'}
+    />
+  </div>
+</Section>

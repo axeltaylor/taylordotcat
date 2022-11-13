@@ -1,0 +1,48 @@
+---
+type Props = {
+  status?: ProjectStatus
+  type?: ProjectType
+  link?: string
+}
+
+export enum ProjectStatus {
+  wip = 'work-in-progress',
+  dead = 'dead',
+  live = 'live',
+  unknown = 'unknown',
+}
+
+export enum ProjectType {
+  website = 'website',
+  poc = 'proof-of-concept',
+}
+
+const { link, status = ProjectStatus.unknown, type } = Astro.props
+
+const getStatusColor = (status: ProjectStatus) => {
+  switch (status) {
+    case ProjectStatus.live:
+      return 'text-not-green'
+    case ProjectStatus.unknown:
+      return 'text-gray-100'
+    case ProjectStatus.wip:
+      return 'text-not-yellow'
+    case ProjectStatus.dead:
+      return 'text-not-pink'
+  }
+}
+---
+
+<li class="border border-not-gray p-4 hover:bg-gray-900 cursor-pointer">
+  <a class="hover:no-underline text-white font-normal" href={link}>
+    <span
+      class:list={[
+        getStatusColor(status),
+        "before:content-['{'] after:content-['}'] before:text-not-blue before:font-bold after:text-not-blue after:font-bold",
+      ]}>{status}</span
+    >
+    <span><slot /></span>
+    {type && <span class="text-not-blue">|</span>}
+    {type && <span>{type}</span>}
+  </a>
+</li>

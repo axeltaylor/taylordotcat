@@ -31,19 +31,53 @@ body {
 }
 
 body {
-  @apply bg-almost-black text-white;
+  @apply bg-black text-white;
 }
 
 a {
-  @apply font-bold decoration-2 decoration-not-pink underline-offset-4 hover:underline focus-visible:underline outline-none text-not-pink;
+  @apply no-underline outline-none text-white hover:underline underline-offset-8 decoration-not-blue decoration-2;
+}
+
+p a::before {
+  content: '[';
+  @apply font-bold text-not-blue inline-block;
+}
+
+p a::after {
+  content: ']';
+  @apply font-bold text-not-blue inline-block;
+}
+
+p a:hover::before {
+  @apply -translate-x-1;
+}
+
+p a:hover::after {
+  @apply translate-x-1;
 }
 
 p {
-  @apply leading-6;
+  @apply leading-6 mb-5;
 }
 
 p:after {
   content: '';
   display: inline-block;
   width: 0px;
+}
+
+details {
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::before {
+  content: '[';
+}
+details > summary::after {
+  content: ']';
 }

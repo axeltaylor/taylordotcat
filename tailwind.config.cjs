@@ -16,13 +16,19 @@ module.exports = {
       colors: {
         'not-white': '#E0DED3',
         'not-black': '#181C1F',
-        'not-blue': '#22cbff',
+        'not-blue': '#0FE0FF',
         'not-red': '#CB3C45',
         'not-green': '#48D597',
         'not-pink': '#E86886',
         'not-yellow': '#F5CF65',
+        'not-gray': '#292F31',
         'almost-black': '#0B1418',
         twitter: '#1DA1F2',
+        github: '#f5f5f5',
+        twitch: '#9146ff',
+        youtube: '#ff0000',
+        instagram: '#e1306c',
+        linkedin: '#0077b5',
       },
       fontFamily: {
         custom:
