@@ -35,24 +35,28 @@ body {
 }
 
 a {
-  @apply no-underline outline-none text-white hover:underline underline-offset-8 decoration-not-blue decoration-2;
+  @apply no-underline outline-none text-white hover:underline active:underline focus:underline underline-offset-8 decoration-not-blue decoration-2;
 }
 
 p a::before {
   content: '[';
-  @apply font-bold text-not-blue inline-block;
+  @apply font-bold text-not-blue inline-block transition-transform;
 }
 
 p a::after {
   content: ']';
-  @apply font-bold text-not-blue inline-block;
+  @apply font-bold text-not-blue inline-block transition-transform;
 }
 
-p a:hover::before {
+p a:hover::before,
+p a:active::before,
+p a:focus::before {
   @apply -translate-x-1;
 }
 
-p a:hover::after {
+p a:hover::after,
+p a:active::after,
+p a:focus::after {
   @apply translate-x-1;
 }
 
@@ -64,20 +68,4 @@ p:after {
   content: '';
   display: inline-block;
   width: 0px;
-}
-
-details {
-}
-
-details > summary {
-  list-style: none;
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details > summary::before {
-  content: '[';
-}
-details > summary::after {
-  content: ']';
 }

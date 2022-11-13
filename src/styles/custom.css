@@ -1,0 +1,31 @@
+.\@pseudo\:bold\:not-blue {
+  @apply before:text-not-blue before:font-bold after:text-not-blue after:font-bold;
+}
+
+.\@bold\:not-blue {
+  @apply text-not-blue font-bold;
+}
+
+.\@pseudo\:brackets {
+  @apply after:content-[']'] before:content-['['];
+}
+
+.\@entry-bg {
+  @apply hover:from-gray-900 focus:from-gray-900 hover:via-gray-900 focus:via-gray-900 bg-gradient-to-r from-black via-black;
+}
+
+.\@group\:list-item {
+  @apply group-hover:bg-gray-900 group-focus:bg-gray-900 group-active:bg-gray-900 block;
+}
+
+.\@list-item {
+  @apply hover:bg-gray-900 focus:bg-gray-900 active:bg-gray-900 block;
+}
+
+.\@all\:no-underline {
+  @apply focus:no-underline active:no-underline hover:no-underline;
+}
+
+.\@a\:box {
+  @apply @all:no-underline text-white font-normal;
+}

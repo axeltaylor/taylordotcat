@@ -33,12 +33,12 @@ const getStatusColor = (status: ProjectStatus) => {
 }
 ---
 
-<li class="border border-not-gray p-4 hover:bg-gray-900 cursor-pointer">
-  <a class="hover:no-underline text-white font-normal" href={link}>
+<li class="border border-not-gray">
+  <a class="p-4 @a:box @list-item" href={link} target="_blank">
     <span
       class:list={[
         getStatusColor(status),
-        "before:content-['{'] after:content-['}'] before:text-not-blue before:font-bold after:text-not-blue after:font-bold",
+        '@pseudo:brackets @pseudo:bold:not-blue',
       ]}>{status}</span
     >
     <span><slot /></span>

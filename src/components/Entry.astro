@@ -29,21 +29,16 @@ const image = await getImage({
 ---
 
 <article
-  class="bg-cover bg-no-repeat bg-center rounded overflow-hidden cursor-pointer group border border-not-gray transition-colors"
+  class="bg-cover bg-no-repeat bg-center rounded overflow-hidden border border-not-gray"
   style={`background-image: url(${image.src});`}
 >
-  <a href="#" class="hover:no-underline text-white font-normal">
-    <div
-      class="group-hover:from-gray-900 group-hover:via-gray-900 bg-gradient-to-r from-black via-black p-4 flex flex-col gap-4"
-    >
-      <span
-        class="after:content-[']'] before:content-['['] before:text-not-blue before:font-bold after:text-not-blue after:font-bold"
-        >{topText}</span
-      >
+  <a href="#" target="_blank" class="@a:box @entry-bg p-4 flex flex-col gap-4">
+    <div class="">
+      <span class="@pseudo:brackets @pseudo:bold:not-blue">{topText}</span>
       <h1 class="text-xl">{title}</h1>
       <p class="m-0">
         <time datetime={creationDate.toISOString()}>{formatedDate}</time>
-        {tag && <span class="text-not-blue font-bold"> | </span>}
+        {tag && <span class="@bold:not-blue"> | </span>}
         {tag && <span>{tag}</span>}
       </p>
     </div>
