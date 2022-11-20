@@ -3,7 +3,6 @@ import { getImage } from '@astrojs/image'
 import { format } from 'date-fns'
 interface Props {
   type: string
-  number?: number
   title: string
   url?: string
   creationDate: Date
@@ -14,11 +13,9 @@ interface Props {
 const DEFAULT_FEATURED_IMAGE_URL =
   'https://images.unsplash.com/photo-1667478828745-0b3ec0c3f97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1833&q=80'
 
-const { type, number, title, url, creationDate, tags, featuredImageUrl } =
-  Astro.props
+const { type, title, url, creationDate, tags, featuredImageUrl } = Astro.props
 
-const topText = type === 'blog' ? `#${number}` : type
-const formatedDate = format(creationDate, 'dd.MM.yyyy')
+const formatedDate = format(creationDate || new Date(), 'dd.MM.yyyy')
 const tag = tags?.[0]
 const imageUrl = featuredImageUrl || DEFAULT_FEATURED_IMAGE_URL
 const image = await getImage({
@@ -34,7 +31,7 @@ const image = await getImage({
 >
   <a href={url} class="@a:box @entry-bg p-4 flex flex-col gap-4">
     <div class="">
-      <span class="@pseudo:brackets @pseudo:bold:not-blue">{topText}</span>
+      <span class="@pseudo:brackets @pseudo:bold:not-blue">{type}</span>
       <h1 class="text-xl">{title}</h1>
       <p class="m-0">
         <time datetime={creationDate.toISOString()}>{formatedDate}</time>

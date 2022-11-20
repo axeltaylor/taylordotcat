@@ -30,6 +30,13 @@ export const mapBlokProps = <T>(
       }
     }
 
+    if (val.type === 'date') {
+      return {
+        ...res,
+        [key]: new Date(val.date?.start ?? new Date()),
+      }
+    }
+
     if (val.type === 'last_edited_time') {
       return {
         ...res,

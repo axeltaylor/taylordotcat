@@ -13,7 +13,7 @@ const { entries } = Astro.props
 
 const getUrl = (entry: Blok<BlogBlokProps>) => {
   if (!entry.properties.link) return '#'
-  if (entry.properties.type === 'blog-post') {
+  if (entry.properties.type === 'blog') {
     return `/b/${entry.properties.link}`
   }
   return entry.properties.link
@@ -28,18 +28,16 @@ const getUrl = (entry: Blok<BlogBlokProps>) => {
         index === 0 ? (
           <Entry
             title={entry.title}
-            creationDate={entry.properties.createdAt}
+            creationDate={entry.properties.publishedAt}
             type={entry.properties.type}
-            number={1}
             tags={entry.properties.tags}
             url={getUrl(entry)}
           />
         ) : (
           <EntryLite
             title={entry.title}
-            creationDate={entry.properties.createdAt}
+            creationDate={entry.properties.publishedAt}
             type={entry.properties.type}
-            number={1}
             tags={entry.properties.tags}
             url={getUrl(entry)}
           />

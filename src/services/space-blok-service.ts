@@ -12,13 +12,43 @@ class SpaceBlokService {
 
   public async getEntries() {
     return this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
+      filter: {
+        property: 'status',
+        status: {
+          equals: 'published',
+        },
+      },
       sort: {
-        createdAt: 'descending',
+        publishedAt: 'ascending',
       },
     })
   }
 
-  public async getEntryBySlug(slug: string) {
+  public async getBlogEntries() {
+    return this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
+      filter: {
+        and: [
+          {
+            property: 'type',
+            select: {
+              equals: 'blog',
+            },
+          },
+          {
+            property: 'status',
+            status: {
+              equals: 'published',
+            },
+          },
+        ],
+      },
+      sort: {
+        publishedAt: 'ascending',
+      },
+    })
+  }
+
+  public async getBlogEntryBySlug(slug: string) {
     const entries = await this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
       filter: {
         property: 'link',

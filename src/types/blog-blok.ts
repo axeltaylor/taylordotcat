@@ -11,5 +11,5 @@ export type BlogBlokProps = {
   type: SelectBlokProperty
   link: URLBlokProperty
   tags: MultiSelectBlokProperty
-  createdAt: DateBlokProperty
+  publishedAt: DateBlokProperty
 }

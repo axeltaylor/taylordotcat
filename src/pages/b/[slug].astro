@@ -1,14 +1,19 @@
 ---
 import type { BlogBlokProps } from '@appTypes/blog-blok'
+import { Image } from '@astrojs/image/components'
+import Section from '@components/section/Section.astro'
+import SectionTitle from '@components/section/SectionTitle.astro'
+import MainLayout from '@layouts/MainLayout.astro'
 import type { Blok } from '@libs/space-blok'
 import { spaceBlokService } from '@services/space-blok-service'
+import { format } from 'date-fns'
 
 export type Props = {
   entry: Blok<BlogBlokProps>
 }
 
 export async function getStaticPaths() {
-  const entries = await spaceBlokService.getEntries()
+  const entries = await spaceBlokService.getBlogEntries()
   return [
     ...entries.map((entry) => ({
       params: { slug: entry.properties.link },
@@ -17,7 +22,32 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params
-const entry = await spaceBlokService.getEntryBySlug(`${slug}`)
+const entry = await spaceBlokService.getBlogEntryBySlug(`${slug}`)
+const formatedDate = format(entry.properties.publishedAt, 'dd.MM.yyyy')
 ---
 
-<span>hello {entry.title} : {entry.id}</span>
+<MainLayout title={entry.title}>
+  <Section>
+    {
+      entry.coverImgSrc && (
+        <Image
+          src={entry.coverImgSrc}
+          alt=""
+          height={320}
+          aspectRatio="119 : 40"
+          class="rounded"
+        />
+      )
+    }
+    <p class="m-0">
+      <a href="/">go back</a>
+      {entry.properties.tags && <span class="text-not-blue">|</span> <span> {entry.properties.tags.join(', ')}</span>}
+      <span class="text-not-blue">|</span>
+      <time datetime={entry.properties.publishedAt.toISOString()}
+        >{formatedDate}</time
+      >
+      
+    </p>
+    <SectionTitle>{entry.title}</SectionTitle>
+  </Section>
+</MainLayout>
