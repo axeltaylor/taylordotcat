@@ -1,26 +1,50 @@
 ---
+import type { BlogBlokProps } from '@appTypes/blog-blok'
 import Entry from '@components/Entry.astro'
 import EntryLite from '@components/EntryLite.astro'
 import Section from '@components/section/Section.astro'
 import SectionTitle from '@components/section/SectionTitle.astro'
+import type { Blok } from '@libs/space-blok'
+
+export type Props = {
+  entries: Blok<BlogBlokProps>[]
+}
+const { entries } = Astro.props
+
+const getUrl = (entry: Blok<BlogBlokProps>) => {
+  if (!entry.properties.link) return '#'
+  if (entry.properties.type === 'blog-post') {
+    return `/b/${entry.properties.link}`
+  }
+  return entry.properties.link
+}
 ---
 
 <Section>
   <SectionTitle>Entradas</SectionTitle>
   <div class="flex flex-col gap-5">
-    <Entry
-      title="Lorem ipsum lorem feet"
-      creationDate={new Date()}
-      type={'blog'}
-      number={1}
-      tags={['development']}
-    />
-    <EntryLite
-      title="Lorem ipsum lorem and the cold feet"
-      creationDate={new Date()}
-      type={'youtube'}
-      tags={['development']}
-      url={'https://youtube.com/@taylordotcat'}
-    />
+    {
+      entries.map((entry, index) =>
+        index === 0 ? (
+          <Entry
+            title={entry.title}
+            creationDate={entry.properties.createdAt}
+            type={entry.properties.type}
+            number={1}
+            tags={entry.properties.tags}
+            url={getUrl(entry)}
+          />
+        ) : (
+          <EntryLite
+            title={entry.title}
+            creationDate={entry.properties.createdAt}
+            type={entry.properties.type}
+            number={1}
+            tags={entry.properties.tags}
+            url={getUrl(entry)}
+          />
+        )
+      )
+    }
   </div>
 </Section>

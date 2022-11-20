@@ -1,7 +1,7 @@
 ---
 import { format } from 'date-fns'
 interface Props {
-  type: 'blog' | 'youtube' | 'github'
+  type: string
   number?: number
   title: string
   url?: string
@@ -17,7 +17,7 @@ const tag = tags?.[0]
 ---
 
 <article class="rounded overflow-hidden border border-not-gray">
-  <a href="#" target="_blank" class="@a:box @list-item p-4 flex flex-col gap-2">
+  <a href={url} class="@a:box @list-item p-4 flex flex-col gap-2">
     <p class="m-0">
       <span class="@pseudo:brackets @pseudo:bold:not-blue">{topText}</span>
       <time datetime={creationDate.toISOString()}>{formatedDate}</time>

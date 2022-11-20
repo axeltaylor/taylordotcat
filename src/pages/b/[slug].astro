@@ -1,0 +1,23 @@
+---
+import type { BlogBlokProps } from '@appTypes/blog-blok'
+import type { Blok } from '@libs/space-blok'
+import { spaceBlokService } from '@services/space-blok-service'
+
+export type Props = {
+  entry: Blok<BlogBlokProps>
+}
+
+export async function getStaticPaths() {
+  const entries = await spaceBlokService.getEntries()
+  return [
+    ...entries.map((entry) => ({
+      params: { slug: entry.properties.link },
+    })),
+  ]
+}
+
+const { slug } = Astro.params
+const entry = await spaceBlokService.getEntryBySlug(`${slug}`)
+---
+
+<span>hello {entry.title} : {entry.id}</span>

@@ -3,10 +3,13 @@ import MainLayout from '@layouts/MainLayout.astro'
 import EntriesSection from '@sections/EntriesSection.astro'
 import IntroSection from '@sections/IntroSection.astro'
 import ProjectsSection from '@sections/ProjectsSection.astro'
+import { spaceBlokService } from '@services/space-blok-service'
+
+const entries = await spaceBlokService.getEntries()
 ---
 
 <MainLayout title="Axel Taylor — Software Engineer. Content Creator.">
   <IntroSection />
-  <EntriesSection />
+  <EntriesSection entries={entries} />
   <ProjectsSection />
 </MainLayout>

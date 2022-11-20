@@ -11,7 +11,10 @@
       "@layouts/*": ["src/layouts/*"],
       "@sections/*": ["src/sections/*"],
       "@stores/*": ["src/stores/*"],
-      "@content/*": ["src/content/*"]
+      "@content/*": ["src/content/*"],
+      "@libs/*": ["src/libs/*"],
+      "@appTypes/*": ["src/types/*"],
+      "@services/*": ["src/services/*"]
     }
   }
 }

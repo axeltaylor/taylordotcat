@@ -2,7 +2,7 @@
 import { getImage } from '@astrojs/image'
 import { format } from 'date-fns'
 interface Props {
-  type: 'blog' | 'youtube' | 'github'
+  type: string
   number?: number
   title: string
   url?: string
@@ -32,7 +32,7 @@ const image = await getImage({
   class="bg-cover bg-no-repeat bg-center rounded overflow-hidden border border-not-gray"
   style={`background-image: url(${image.src});`}
 >
-  <a href="#" target="_blank" class="@a:box @entry-bg p-4 flex flex-col gap-4">
+  <a href={url} class="@a:box @entry-bg p-4 flex flex-col gap-4">
     <div class="">
       <span class="@pseudo:brackets @pseudo:bold:not-blue">{topText}</span>
       <h1 class="text-xl">{title}</h1>
