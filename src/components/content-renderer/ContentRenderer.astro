@@ -1,0 +1,51 @@
+---
+import { BlokContent, BlokContentType } from '@libs/space-blok'
+
+import ContentBulletedList from './ContentBulletedList.astro'
+import ContentCallout from './ContentCallout.astro'
+import ContentCode from './ContentCode.astro'
+import ContentDevider from './ContentDevider.astro'
+import ContentHeading from './ContentHeading.astro'
+import ContentImage from './ContentImage.astro'
+import ContentNumberedList from './ContentNumberedList.astro'
+import ContentParagraph from './ContentParagraph.astro'
+import ContentQuote from './ContentQuote.astro'
+import ContentVideo from './ContentVideo.astro'
+
+export type Props = {
+  contents: BlokContent[]
+}
+
+const { contents } = Astro.props
+---
+
+<div class="@content:renderer">
+  {
+    contents.map((blokContent: BlokContent) => {
+      switch (blokContent.type) {
+        case BlokContentType.Heading1:
+        case BlokContentType.Heading2:
+        case BlokContentType.Heading3:
+          return <ContentHeading content={blokContent} />
+        case BlokContentType.Paragraph:
+          return <ContentParagraph content={blokContent} />
+        case BlokContentType.NumberedList:
+          return <ContentNumberedList content={blokContent} />
+        case BlokContentType.BulletedList:
+          return <ContentBulletedList content={blokContent} />
+        case BlokContentType.Quote:
+          return <ContentQuote content={blokContent} />
+        case BlokContentType.Callout:
+          return <ContentCallout content={blokContent} />
+        case BlokContentType.Devider:
+          return <ContentDevider />
+        case BlokContentType.Code:
+          return <ContentCode content={blokContent} />
+        case BlokContentType.Image:
+          return <ContentImage content={blokContent} />
+        case BlokContentType.Video:
+          return <ContentVideo content={blokContent} />
+      }
+    })
+  }
+</div>

@@ -1,3 +1,4 @@
+import type { BlokContent } from './BlokContent'
 import type { BlokProperties } from './BlokProperties'
 
 export type Blok<T = BlokProperties> = {
@@ -5,4 +6,5 @@ export type Blok<T = BlokProperties> = {
   properties: T
   title: string
   id: string
+  contents?: BlokContent[]
 }

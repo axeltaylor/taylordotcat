@@ -1,4 +1,4 @@
-import type { BlogBlokProps } from '@appTypes/blog-blok'
+import type { EntryBlokProps } from '@appTypes/entry-blok'
 import { SpaceBlok } from '@libs/space-blok'
 const notionToken = import.meta.env.NOTION_API_TOKEN
 const ENTRIES_DB_ID = '855ea8636460485eb074ec3a4f4ef603'
@@ -11,7 +11,7 @@ class SpaceBlokService {
   }
 
   public async getEntries() {
-    return this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
+    return this.sb.getDbEntries<EntryBlokProps>(ENTRIES_DB_ID, {
       filter: {
         property: 'status',
         status: {
@@ -25,7 +25,7 @@ class SpaceBlokService {
   }
 
   public async getBlogEntries() {
-    return this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
+    return this.sb.getDbEntries<EntryBlokProps>(ENTRIES_DB_ID, {
       filter: {
         and: [
           {
@@ -49,7 +49,7 @@ class SpaceBlokService {
   }
 
   public async getBlogEntryBySlug(slug: string) {
-    const entries = await this.sb.getDbEntries<BlogBlokProps>(ENTRIES_DB_ID, {
+    const entries = await this.sb.getDbEntries<EntryBlokProps>(ENTRIES_DB_ID, {
       filter: {
         property: 'link',
         url: {
@@ -57,7 +57,11 @@ class SpaceBlokService {
         },
       },
     })
-    return entries?.[0] ?? null
+    const entry = entries?.[0] ?? null
+    if (entry) {
+      entry.contents = await this.sb.getEntryContents(entry.id)
+    }
+    return entry
   }
 }
 

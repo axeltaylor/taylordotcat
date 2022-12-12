@@ -10,24 +10,23 @@ interface Props {
   featuredImageUrl?: string
 }
 
-const DEFAULT_FEATURED_IMAGE_URL =
-  'https://images.unsplash.com/photo-1667478828745-0b3ec0c3f97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1833&q=80'
-
 const { type, title, url, creationDate, tags, featuredImageUrl } = Astro.props
 
 const formatedDate = format(creationDate || new Date(), 'dd.MM.yyyy')
 const tag = tags?.[0]
-const imageUrl = featuredImageUrl || DEFAULT_FEATURED_IMAGE_URL
-const image = await getImage({
-  src: imageUrl,
-  aspectRatio: '119 : 20',
-  height: 160,
-})
+const image =
+  (featuredImageUrl &&
+    (await getImage({
+      src: featuredImageUrl,
+      aspectRatio: '119 : 40',
+      height: 320,
+    }))) ||
+  null
 ---
 
 <article
   class="bg-cover bg-no-repeat bg-center rounded overflow-hidden border border-not-gray"
-  style={`background-image: url(${image.src});`}
+  style={image && `background-image: url(${image.src});`}
 >
   <a href={url} class="@a:box @entry-bg p-4 flex flex-col gap-4">
     <div class="">

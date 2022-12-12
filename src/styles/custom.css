@@ -29,3 +29,7 @@
 .\@a\:box {
   @apply @all:no-underline text-white font-normal;
 }
+
+.\@content\:code pre {
+  @apply !bg-not-white bg-opacity-10 p-4 rounded-md;
+}

@@ -32,6 +32,7 @@ const getUrl = (entry: Blok<BlogBlokProps>) => {
             type={entry.properties.type}
             tags={entry.properties.tags}
             url={getUrl(entry)}
+            featuredImageUrl={entry.coverImgSrc}
           />
         ) : (
           <EntryLite

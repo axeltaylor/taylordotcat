@@ -1,0 +1,18 @@
+---
+import { Image } from '@astrojs/image/components'
+import type { BlokContentImage } from '@libs/space-blok'
+import probe from 'probe-image-size'
+
+export type Props = {
+  content: BlokContentImage
+}
+const { content } = Astro.props
+let result = await probe(content.url)
+---
+
+<Image
+  alt={content.alt}
+  src={content.url}
+  height={result.height}
+  width={result.width}
+/>

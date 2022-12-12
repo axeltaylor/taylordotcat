@@ -1,0 +1,34 @@
+---
+import SectionTitle from '@components/section/SectionTitle.astro'
+import { BlokContentHeading, BlokContentType } from '@libs/space-blok'
+
+import ContentRichText from './ContentRichText.astro'
+
+export type Props = {
+  content: BlokContentHeading
+}
+
+const { content } = Astro.props
+---
+
+{
+  content.type === BlokContentType.Heading1 && (
+    <SectionTitle>
+      <ContentRichText elements={content.elements} />
+    </SectionTitle>
+  )
+}
+{
+  content.type === BlokContentType.Heading2 && (
+    <h2 class="text-not-yellow font-black text-lg lowercase mb-2 before:content-['->'] before:font-normal">
+      <ContentRichText elements={content.elements} />
+    </h2>
+  )
+}
+{
+  content.type === BlokContentType.Heading3 && (
+    <h3 class="font-black text-lg lowercase">
+      <ContentRichText elements={content.elements} />
+    </h3>
+  )
+}

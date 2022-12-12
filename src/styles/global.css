@@ -61,7 +61,7 @@ p a:focus::after {
 }
 
 p {
-  @apply leading-6 mb-5;
+  @apply leading-6 mb-5 empty:mb-0;
 }
 
 p:after {

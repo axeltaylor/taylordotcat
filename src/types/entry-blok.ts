@@ -6,7 +6,7 @@ import type {
   URLBlokProperty,
 } from '@libs/space-blok'
 
-export type BlogBlokProps = {
+export type EntryBlokProps = {
   status: StatusBlokProperty
   type: SelectBlokProperty
   link: URLBlokProperty

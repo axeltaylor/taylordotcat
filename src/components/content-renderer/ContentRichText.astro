@@ -1,0 +1,38 @@
+---
+import type { BlokContentRichText } from '@libs/space-blok'
+
+export type Props = {
+  elements: BlokContentRichText[]
+}
+
+const { elements } = Astro.props
+---
+
+{
+  elements.map((element: BlokContentRichText) => {
+    let node = element.text
+    if (element.href) {
+      node = <a href={element.href}>{node}</a>
+    }
+    if (element.isBold) {
+      node = <b>{node}</b>
+    }
+    if (element.isItalic) {
+      node = <i>{node}</i>
+    }
+    if (element.isStrikethrough) {
+      node = <s>{node}</s>
+    }
+    if (element.isUnderline) {
+      node = <u>{node}</u>
+    }
+    if (element.isCode) {
+      node = (
+        <code class="bg-not-pink px-2 bg-opacity-20 rounded-md text-not-pink">
+          {node}
+        </code>
+      )
+    }
+    return node
+  })
+}

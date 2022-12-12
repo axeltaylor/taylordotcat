@@ -1,0 +1,43 @@
+---
+import type { EntryBlokProps } from '@appTypes/entry-blok';
+import { Image } from '@astrojs/image/components'
+import ContentRenderer from '@components/content-renderer/ContentRenderer.astro';
+import Section from '@components/section/Section.astro'
+import SectionTitle from '@components/section/SectionTitle.astro'
+import type { Blok } from '@libs/space-blok';
+import { format } from 'date-fns';
+
+export type Props = {
+  entry: Blok<EntryBlokProps>
+}
+
+const {entry} = Astro.props
+const formatedDate = format(entry.properties.publishedAt, 'dd.MM.yyyy')
+
+---
+
+<Section>
+    {
+      entry.coverImgSrc && (
+        <Image
+          src={entry.coverImgSrc}
+          alt=""
+          height={320}
+          aspectRatio="119 : 40"
+          class="rounded"
+        />
+      )
+    }
+    <p class="m-0">
+      <a href="/">go back</a>
+      {entry.properties.tags && <span class="text-not-blue">|</span> <span> {entry.properties.tags.join(', ')}</span>}
+      <span class="text-not-blue">|</span>
+      <time datetime={entry.properties.publishedAt.toISOString()}
+        >{formatedDate}</time
+      >
+    </p>
+    <SectionTitle>{entry.title}</SectionTitle>
+    <div class="@rich-content">
+     <ContentRenderer contents={entry.contents ?? []} />
+    </div>
+  </Section>
