@@ -15,12 +15,12 @@ export enum BlokContentType {
 }
 
 export enum BlokContentColors {
-  default = '#000000',
+  default = '#ffffff',
   gray = '#666666',
   brown = '#a52a2a',
   orange = '#ffa500',
   yellow = '#ffff00',
-  green = '#00ff00',
+  green = '#48d597',
   blue = '#0000ff',
   purple = '#800080',
   pink = '#ffc0cb',
@@ -29,7 +29,7 @@ export enum BlokContentColors {
   brown_background = '#f0d6b3',
   orange_background = '#ffdab9',
   yellow_background = '#ffffe0',
-  green_background = '#90ee90',
+  green_background = '#48d597',
   blue_background = '#add8e6',
   purple_background = '#d8bfd8',
   pink_background = '#ffd1dc',
