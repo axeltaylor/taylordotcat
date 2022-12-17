@@ -1,3 +1,6 @@
+@import './custom.css';
+@import './menu.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,12 +38,16 @@ body {
 }
 
 a {
-  @apply no-underline outline-none text-white hover:underline active:underline focus:underline underline-offset-8 decoration-not-blue decoration-2;
+  @apply no-underline outline-none text-white;
+}
+
+p a {
+  @apply hover:before:text-not-pink;
 }
 
 p a::before {
   content: '[';
-  @apply font-bold text-not-blue inline-block transition-transform;
+  @apply font-bold text-not-blue inline-block transition-transform content-['['];
 }
 
 p a::after {

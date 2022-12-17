@@ -1,12 +1,18 @@
 ---
 ---
 
-<div class="group flex flex-row">
-  <button>&#123; menu &#125;</button>
-  <ul class="group-hover:flex hidden flex-row">
-    <li>Hello</li>
-    <li>Hello</li>
-    <li>Hello</li>
-    <li>Hello</li>
-  </ul>
+<div class="@menu">
+  <input type="checkbox" class="hidden" id="burger" name="burger" />
+  <label for="burger" class="block h-6 w-6 relative">
+    <span></span>
+    <span></span>
+  </label>
+  <div class="menu-items">
+    <ul>
+      <li><a href="/" class="before:!content-['']">root</a></li>
+      <li><a href="/">links</a></li>
+      <li><a href="/">setup</a></li>
+      <li><a href="/">shop</a></li>
+    </ul>
+  </div>
 </div>
