@@ -42,17 +42,15 @@ a {
 }
 
 p a {
-  @apply hover:before:text-not-pink;
+  @apply hover:before:text-not-pink hover:after:text-not-pink;
 }
 
 p a::before {
-  content: '[';
   @apply font-bold text-not-blue inline-block transition-transform content-['['];
 }
 
 p a::after {
-  content: ']';
-  @apply font-bold text-not-blue inline-block transition-transform;
+  @apply font-bold text-not-blue inline-block transition-transform content-[']'];
 }
 
 p a:hover::before,
