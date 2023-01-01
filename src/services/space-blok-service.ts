@@ -2,6 +2,31 @@ import type { EntryBlokProps } from '@appTypes/entry-blok'
 import { SpaceBlok } from '@libs/space-blok'
 const notionToken = import.meta.env.NOTION_API_TOKEN
 const ENTRIES_DB_ID = '855ea8636460485eb074ec3a4f4ef603'
+const INTRO_ID = '03a165e502f64a9192b5f48ab1a37a11'
+const isDev = import.meta.env.MODE === 'development'
+const filterStatus = isDev
+  ? {
+      or: [
+        {
+          property: 'status',
+          status: {
+            equals: 'published',
+          },
+        },
+        {
+          property: 'status',
+          status: {
+            equals: 'draft',
+          },
+        },
+      ],
+    }
+  : {
+      property: 'status',
+      status: {
+        equals: 'published',
+      },
+    }
 
 class SpaceBlokService {
   private sb: SpaceBlok
@@ -12,12 +37,7 @@ class SpaceBlokService {
 
   public async getEntries() {
     return this.sb.getDbEntries<EntryBlokProps>(ENTRIES_DB_ID, {
-      filter: {
-        property: 'status',
-        status: {
-          equals: 'published',
-        },
-      },
+      filter: filterStatus,
       sort: {
         publishedAt: 'ascending',
       },
@@ -34,12 +54,7 @@ class SpaceBlokService {
               equals: 'blog',
             },
           },
-          {
-            property: 'status',
-            status: {
-              equals: 'published',
-            },
-          },
+          filterStatus,
         ],
       },
       sort: {
@@ -61,6 +76,11 @@ class SpaceBlokService {
     if (entry) {
       entry.contents = await this.sb.getEntryContents(entry.id)
     }
+    return entry
+  }
+
+  public async getIntro() {
+    const entry = await this.sb.getEntryContents(INTRO_ID)
     return entry
   }
 }

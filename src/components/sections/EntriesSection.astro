@@ -14,7 +14,7 @@ const { entries } = Astro.props
 const getUrl = (entry: Blok<BlogBlokProps>) => {
   if (!entry.properties.link) return '#'
   if (entry.properties.type === 'blog') {
-    return `/b/${entry.properties.link}`
+    return `/blog/${entry.properties.link}`
   }
   return entry.properties.link
 }

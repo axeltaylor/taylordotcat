@@ -1,7 +1,6 @@
 ---
 import EntriesSection from '@components/sections/EntriesSection.astro'
 import IntroSection from '@components/sections/IntroSection.astro'
-import ProjectsSection from '@components/sections/ProjectsSection.astro'
 import MainLayout from '@layouts/MainLayout.astro'
 import { spaceBlokService } from '@services/space-blok-service'
 
@@ -14,5 +13,5 @@ const entries = await spaceBlokService.getEntries()
   <Self />
   <IntroSection />
   <EntriesSection entries={entries} />
-  <ProjectsSection />
+  <!-- <ProjectsSection /> -->
 </MainLayout>
