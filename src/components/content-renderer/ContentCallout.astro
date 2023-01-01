@@ -10,15 +10,15 @@ export type Props = {
 
 const { content } = Astro.props
 const color = content.color ?? '#fff'
-const backgroundColor = hexToCssRgba(color, 0.25)
+const backgroundColor = hexToCssRgba(color, 0.1)
 ---
 
 <blockquote
-  class="rounded border-2 bg-opacity-10 p-3 flex flex-row gap-3 mb-2"
+  class="rounded bg-opacity-10 p-4 flex flex-row gap-3 mb-2"
   style={content.color
-    ? `color: ${color}; border-color: ${color}; background-color: ${backgroundColor};`
+    ? `color: ${color}; background-color: ${backgroundColor};`
     : ''}
 >
   <span>{content.emoji}</span>
-  <ContentRichText elements={content.elements} />
+  <p class="m-0"><ContentRichText elements={content.elements} /></p>
 </blockquote>

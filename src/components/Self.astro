@@ -1,0 +1,20 @@
+---
+import Avatar from './Avatar.astro'
+import Section from './section/Section.astro'
+import SocialIcons from './SocialIcons.astro'
+---
+
+<Section>
+  <div
+    class="flex flex-col md:flex-row gap-4 md:gap-7 justify-start items-center text-center md:text-left"
+  >
+    <div class="flex-shrink-0"><Avatar /></div>
+    <div class="flex flex-col">
+      <h1 class="text-3xl font-bold">Axel Taylor</h1>
+      <span class="text-2xl mb-2">Software Engineer</span>
+      <div class="w-full flex justify-center md:justify-start">
+        <SocialIcons />
+      </div>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,33 @@
+.\@menu label span {
+  @apply block h-[2px] w-6 bg-not-blue absolute left-0 top-2 transition ease-in-out duration-300;
+}
+
+.\@menu label span:last-of-type {
+  @apply bg-not-pink top-4;
+}
+
+.\@header input:checked ~ header .\@menu label span:first-of-type {
+  @apply rotate-[135deg] top-3;
+}
+
+.\@header input:checked ~ header .\@menu label span:last-of-type {
+  @apply -rotate-[135deg] top-3;
+}
+
+.\@header input:checked ~ header .\@menu .menu-items {
+  @apply block;
+}
+
+.\@menu .menu-items {
+  @apply hidden flex-row gap-3 w-full h-[calc(100vh-3rem)] md:flex top-12 left-0 absolute;
+  @apply md:relative md:w-auto md:h-auto md:top-0;
+}
+
+.\@menu ul {
+  @apply flex gap-4 h-full w-full flex-col px-6 text-xl;
+  @apply md:flex-row md:text-lg;
+}
+
+.\@menu ul li a {
+  @apply w-full inline-block before:content-['~/'] before:text-not-blue hover:before:text-not-pink hover:text-white/90 before:transition-colors transition-colors;
+}
