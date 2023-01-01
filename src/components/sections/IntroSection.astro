@@ -1,19 +1,14 @@
 ---
-import Callout from '@components/Callout.astro'
+import ContentRenderer from '@components/content-renderer/ContentRenderer.astro'
 import Section from '@components/section/Section.astro'
 import SectionTitle from '@components/section/SectionTitle.astro'
-import { Content as Intro } from '@content/intro.md'
+import { spaceBlokService } from '@services/space-blok-service'
+const introBloks = await spaceBlokService.getIntro()
 ---
 
 <Section>
   <SectionTitle>Intro</SectionTitle>
   <div>
-    <Intro />
-    <Callout>
-      <span>
-        Si necesitas ponerte en contacto conmigo, puedes hacerlo via
-        <a href="">twitter</a>📥.
-      </span>
-    </Callout>
+    <ContentRenderer contents={introBloks} />
   </div>
 </Section>

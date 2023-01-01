@@ -29,9 +29,7 @@ const formatedDate = format(entry.properties.publishedAt, 'dd.MM.yyyy')
       )
     }
     <p class="m-0">
-      <a href="/">go back</a>
-      {entry.properties.tags && <span class="text-not-blue">|</span> <span> {entry.properties.tags.join(', ')}</span>}
-      <span class="text-not-blue">|</span>
+      {entry.properties.tags &&  <span>{entry.properties.tags.join(', ')} </span> <span class="text-not-blue">|</span>}
       <time datetime={entry.properties.publishedAt.toISOString()}
         >{formatedDate}</time
       >
