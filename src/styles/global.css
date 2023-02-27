@@ -39,11 +39,11 @@ body {
 }
 
 a {
-  @apply no-underline outline-none text-white whitespace-nowrap;
+  @apply no-underline outline-none text-white;
 }
 
 p a {
-  @apply hover:before:text-not-pink hover:after:text-not-pink;
+  @apply hover:before:text-not-pink hover:after:text-not-pink whitespace-nowrap;
 }
 
 p a::before {
