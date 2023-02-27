@@ -1,0 +1,21 @@
+{
+  "userIgnoreFilters": [
+    "dist/",
+    "node_modules/",
+    "public/",
+    "dist/assets/",
+    "src/components/",
+    "src/layouts/",
+    "src/libs/",
+    "src/layouts/",
+    "src/types/",
+    "src/styles/",
+    "src/services/",
+    "src/pages/",
+    "src/assets/"
+  ],
+  "attachmentFolderPath": "public/assets",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "src/content",
+  "livePreview": false
+}

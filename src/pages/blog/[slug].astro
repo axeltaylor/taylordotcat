@@ -1,27 +1,28 @@
 ---
-import type { EntryBlokProps } from '@appTypes/entry-blok'
 import BlogEntrySection from '@components/sections/BlogEntrySection.astro'
 import MainLayout from '@layouts/MainLayout.astro'
-import type { Blok } from '@libs/space-blok'
-import { spaceBlokService } from '@services/space-blok-service'
+import { CollectionEntry, getCollection } from 'astro:content'
 
 export type Props = {
-  entry: Blok<EntryBlokProps>
+  entry: CollectionEntry<'entries'>
 }
 
 export async function getStaticPaths() {
-  const entries = await spaceBlokService.getBlogEntries()
-  return [
-    ...entries.map((entry) => ({
-      params: { slug: entry.properties.link },
-    })),
-  ]
+  const blogEntries = await getCollection(
+    'entries',
+    ({ data }) =>
+      data.type === 'blog' &&
+      (data.publishDate < new Date() || import.meta.env.DEV)
+  )
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }))
 }
 
-const { slug } = Astro.params
-const entry = await spaceBlokService.getBlogEntryBySlug(`${slug}`)
+const { entry } = Astro.props
 ---
 
-<MainLayout title={entry.title}>
+<MainLayout title={entry.data.title}>
   <BlogEntrySection entry={entry} />
 </MainLayout>

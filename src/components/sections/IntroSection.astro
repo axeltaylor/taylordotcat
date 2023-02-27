@@ -2,13 +2,15 @@
 import ContentRenderer from '@components/content-renderer/ContentRenderer.astro'
 import Section from '@components/section/Section.astro'
 import SectionTitle from '@components/section/SectionTitle.astro'
-import { spaceBlokService } from '@services/space-blok-service'
-const introBloks = await spaceBlokService.getIntro()
+
+import { getEntryBySlug } from 'astro:content'
+const intro = await getEntryBySlug('sections', 'intro')
+const { Content } = await intro.render()
 ---
 
 <Section>
   <SectionTitle>Intro</SectionTitle>
   <div>
-    <ContentRenderer contents={introBloks} />
+    <Content />
   </div>
 </Section>

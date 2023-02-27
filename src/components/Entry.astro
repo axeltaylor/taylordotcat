@@ -1,42 +1,42 @@
 ---
-import { getImage } from '@astrojs/image'
+import { Image } from '@astrojs/image/components'
 import { format } from 'date-fns'
+import TimeTag from './TimeTag.astro'
 interface Props {
   type: string
   title: string
   url?: string
-  creationDate: Date
+  creationDate?: Date
   tags?: string[]
-  featuredImageUrl?: string
+  cover?: string
 }
 
-const { type, title, url, creationDate, tags, featuredImageUrl } = Astro.props
-
-const formatedDate = format(creationDate || new Date(), 'dd.MM.yyyy')
-const tag = tags?.[0]
-const image =
-  (featuredImageUrl &&
-    (await getImage({
-      src: featuredImageUrl,
-      aspectRatio: '119 : 40',
-      height: 320,
-    }))) ||
-  null
+const { type, title, url, creationDate, tags, cover } = Astro.props
+const defaultImageSrc = '/images/cabin-in-the-woods.png'
+const tagline = tags?.join(', ')
 ---
 
 <article
-  class="bg-cover bg-no-repeat bg-center rounded overflow-hidden border border-not-gray"
-  style={image && `background-image: url(${image.src});`}
+  class="group relative hover:scale-105 transition-transform ease-in-out duration-300 overflow-hidden rounded"
 >
-  <a href={url} class="@a:box @entry-bg p-4 flex flex-col gap-4">
-    <div class="">
-      <span class="@pseudo:brackets @pseudo:bold:not-blue">{type}</span>
-      <h1 class="text-xl">{title}</h1>
-      <p class="m-0">
-        <time datetime={creationDate.toISOString()}>{formatedDate}</time>
-        {tag && <span class="@bold:not-blue"> | </span>}
-        {tag && <span>{tag}</span>}
-      </p>
+  <a href={url} class="@a:box">
+    <Image
+      format={'png'}
+      alt={title}
+      src={cover || defaultImageSrc}
+      height={635}
+      width={952}
+    />
+    <div class="absolute bottom-0 left-0 w-full p-2">
+      <div class="p-4 flex flex-col backdrop-blur-md bg-black/80 rounded">
+        <span class="@pseudo:brackets @pseudo:bold:not-blue">{type}</span>
+        <h1 class="text-xl">{title}</h1>
+        <p class="m-0 text-xs mt-1">
+          <TimeTag date={creationDate || new Date()} />
+          {tagline && <span class="@bold:not-blue"> | </span>}
+          {tagline && <span>{tagline}</span>}
+        </p>
+      </div>
     </div>
   </a>
 </article>

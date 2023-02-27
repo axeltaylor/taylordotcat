@@ -1,41 +1,38 @@
 ---
-import type { EntryBlokProps } from '@appTypes/entry-blok';
 import { Image } from '@astrojs/image/components'
-import ContentRenderer from '@components/content-renderer/ContentRenderer.astro';
 import Section from '@components/section/Section.astro'
+import TimeTag from '@components/TimeTag.astro'
 import SectionTitle from '@components/section/SectionTitle.astro'
-import type { Blok } from '@libs/space-blok';
-import { format } from 'date-fns';
+import type { CollectionEntry } from 'astro:content';
 
 export type Props = {
-  entry: Blok<EntryBlokProps>
+  entry: CollectionEntry<'entries'>
 }
 
 const {entry} = Astro.props
-const formatedDate = format(entry.properties.publishedAt, 'dd.MM.yyyy')
+const { Content } = await entry.render(); 
 
 ---
 
 <Section>
     {
-      entry.coverImgSrc && (
+      entry.data.cover && (
         <Image
-          src={entry.coverImgSrc}
+          src={entry.data.cover}
+          format={'png'}
           alt=""
-          height={320}
-          aspectRatio="119 : 40"
+          height={635}
+          width={952}
           class="rounded"
         />
       )
     }
-    <p class="m-0">
-      {entry.properties.tags &&  <span>{entry.properties.tags.join(', ')} </span> <span class="text-not-blue">|</span>}
-      <time datetime={entry.properties.publishedAt.toISOString()}
-        >{formatedDate}</time
-      >
+    <p class="m-0 text-xs">
+      {entry.data.tags &&  <span>{entry.data.tags.join(', ')} </span> <span class="text-not-blue">|</span>}
+      <TimeTag date={entry.data.publishDate || new Date()} />
     </p>
-    <SectionTitle>{entry.title}</SectionTitle>
-    <div class="@rich-content">
-     <ContentRenderer contents={entry.contents ?? []} />
+    <SectionTitle>{entry.data.title}</SectionTitle>
+    <div class="@rich-content prose prose-invert max-w-full">
+     <Content />
     </div>
   </Section>

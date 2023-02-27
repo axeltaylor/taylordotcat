@@ -10,10 +10,6 @@
   @apply after:content-[']'] before:content-['['];
 }
 
-.\@entry-bg {
-  @apply hover:from-gray-900 focus:from-gray-900 hover:via-gray-900 focus:via-gray-900 bg-gradient-to-r from-black via-black;
-}
-
 .\@group\:list-item {
   @apply group-hover:bg-gray-900 group-focus:bg-gray-900 group-active:bg-gray-900 block;
 }
@@ -28,8 +24,4 @@
 
 .\@a\:box {
   @apply @all:no-underline text-white font-normal;
-}
-
-.\@content\:code pre {
-  @apply !bg-not-white bg-opacity-10 p-4 rounded-md;
 }

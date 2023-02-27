@@ -4,13 +4,14 @@ interface Props {
   type: string
   title: string
   url?: string
-  creationDate: Date
+  creationDate?: Date
   tags?: string[]
 }
 
 const { type, title, url, creationDate, tags } = Astro.props
 
-const formatedDate = format(creationDate, 'dd.MM.yyyy')
+const formatedDate =
+  (creationDate && format(creationDate, 'dd.MM.yyyy')) || 'draft'
 const tag = tags?.[0]
 ---
 
@@ -18,7 +19,7 @@ const tag = tags?.[0]
   <a href={url} class="@a:box @list-item p-4 flex flex-col gap-2">
     <p class="m-0">
       <span class="@pseudo:brackets @pseudo:bold:not-blue">{type}</span>
-      <time datetime={creationDate.toISOString()}>{formatedDate}</time>
+      <time datetime={creationDate?.toISOString()}>{formatedDate}</time>
       {tag && <span class="@bold:not-blue"> | </span>}
       {tag && <span>{tag}</span>}
     </p>

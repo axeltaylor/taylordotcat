@@ -1,0 +1,12 @@
+div[data-path] {
+  display: none;
+}
+div[data-path^='public'] {
+  display: flex;
+}
+div[data-path='src'] {
+  display: flex;
+}
+div[data-path^='src/content'] {
+  display: flex;
+}
