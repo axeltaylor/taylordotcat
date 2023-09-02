@@ -1,8 +1,8 @@
 /// <reference path="../.astro/types.d.ts" />
-/// <reference types="@astrojs/image/client" />
+/// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly NOTION_API_TOKEN: string
+  readonly variable: string
 }
 
 interface ImportMeta {

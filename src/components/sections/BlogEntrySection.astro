@@ -1,10 +1,9 @@
 ---
-import { Image } from '@astrojs/image/components'
 import Section from '@components/section/Section.astro'
-import TimeTag from '@components/TimeTag.astro'
 import SectionTitle from '@components/section/SectionTitle.astro'
+import TimeTag from '@components/TimeTag.astro'
+import {Image} from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-
 export type Props = {
   entry: CollectionEntry<'entries'>
 }
@@ -27,7 +26,7 @@ const { Content } = await entry.render();
         />
       )
     }
-    <p class="m-0 text-xs">
+    <p class="m-0 text-xs gap-2 flex flex-row">
       {entry.data.tags &&  <span>{entry.data.tags.join(', ')} </span> <span class="text-not-blue">|</span>}
       <TimeTag date={entry.data.publishDate || new Date()} />
     </p>
