@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets'
+
+import TimeTag from './TimeTag.astro'
+interface Props {
+  title: string
+  url?: string
+  creationDate?: Date
+  tags?: string[]
+  cover?: string
+}
+
+const { title, url, creationDate, tags, cover } = Astro.props
+const defaultImageSrc = '/images/cabin-in-the-woods.png'
+const tagline = tags?.join(', ')
+---
+
+<article
+  class="group relative hover:scale-105 transition-transform ease-in-out duration-300 overflow-hidden rounded"
+>
+  <a href={url} class="@a:box">
+    <Image
+      format={'png'}
+      alt={title}
+      src={cover || defaultImageSrc}
+      height={635}
+      width={952}
+    />
+    <div class="absolute bottom-0 left-0 w-full p-2">
+      <div class="p-4 flex flex-col backdrop-blur-md bg-black/80 rounded">
+        <!-- <span class="@pseudo:brackets @pseudo:bold:not-blue">{type}</span> -->
+        <h1 class="text-xl">{title}</h1>
+        <p class="m-0 text-xs mt-1">
+          <TimeTag date={creationDate || new Date()} />
+          {tagline && <span class="@bold:not-blue"> | </span>}
+          {tagline && <span>{tagline}</span>}
+        </p>
+      </div>
+    </div>
+  </a>
+</article>

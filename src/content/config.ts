@@ -1,19 +1,17 @@
 import { z, defineCollection } from 'astro:content'
 
-const entriesCollection = defineCollection({
+// 2. Define a `type` and `schema` for each collection
+const projectsCollection = defineCollection({
+  type: 'data',
   schema: z.object({
     title: z.string(),
-    type: z.enum(['blog', 'youtube']).default('blog'),
-    publishDate: z
-      .string()
-      .default('')
-      .transform((str) => (str ? new Date(str) : new Date(8640000000000000))),
-    tags: z.string().array().optional(),
-    cover: z.string().optional(),
-    externalLink: z.string().url().optional(),
+    tags: z.array(z.string()),
+    status: z.enum(['wip', 'live', 'dead']),
+    url: z.string().optional(),
   }),
 })
 
+// 3. Export a single `collections` object to register your collection(s)
 export const collections = {
-  entries: entriesCollection,
+  projects: projectsCollection,
 }

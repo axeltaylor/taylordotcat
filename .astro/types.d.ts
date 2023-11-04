@@ -22,7 +22,12 @@ declare module 'astro:content' {
 	export { z } from 'astro/zod';
 
 	type Flatten<T> = T extends { [K: string]: infer U } ? U : never;
-	export type CollectionEntry<C extends keyof AnyEntryMap> = Flatten<AnyEntryMap[C]>;
+
+	export type CollectionKey = keyof AnyEntryMap;
+	export type CollectionEntry<C extends CollectionKey> = Flatten<AnyEntryMap[C]>;
+
+	export type ContentCollectionKey = keyof ContentEntryMap;
+	export type DataCollectionKey = keyof DataEntryMap;
 
 	// This needs to be in sync with ImageMetadata
 	export type ImageFunction = () => import('astro/zod').ZodObject<{
@@ -38,6 +43,7 @@ declare module 'astro:content' {
 				import('astro/zod').ZodLiteral<'webp'>,
 				import('astro/zod').ZodLiteral<'gif'>,
 				import('astro/zod').ZodLiteral<'svg'>,
+				import('astro/zod').ZodLiteral<'avif'>,
 			]
 		>;
 	}>;
@@ -178,23 +184,7 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"entries": {
-"entry-1-blog-hasta-siempre-2022.md": {
-	id: "entry-1-blog-hasta-siempre-2022.md";
-  slug: "hasta-siempre-2022";
-  body: string;
-  collection: "entries";
-  data: InferEntrySchema<"entries">
-} & { render(): Render[".md"] };
-"entry-2-blog-changelog-n1.md": {
-	id: "entry-2-blog-changelog-n1.md";
-  slug: "changelog-number-1";
-  body: string;
-  collection: "entries";
-  data: InferEntrySchema<"entries">
-} & { render(): Render[".md"] };
-};
-"sections": {
+		"sections": {
 "intro.md": {
 	id: "intro.md";
   slug: "intro";
@@ -207,7 +197,19 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		
+		"projects": {
+"erni-mole-attack": {
+	id: "erni-mole-attack";
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+};
+"taylordotcat": {
+	id: "taylordotcat";
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+};
+};
+
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;

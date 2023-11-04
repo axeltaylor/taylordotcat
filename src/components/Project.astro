@@ -1,48 +1,40 @@
 ---
+import {} from 'astro:content'
+type Status = 'wip' | 'live' | 'dead'
 type Props = {
-  status?: ProjectStatus
-  type?: ProjectType
+  status: Status
+  tags?: string[]
   link?: string
 }
 
-export enum ProjectStatus {
-  wip = 'work-in-progress',
-  dead = 'dead',
-  live = 'live',
-  unknown = 'unknown',
-}
+const { link, status, tags } = Astro.props
 
-export enum ProjectType {
-  website = 'website',
-  poc = 'proof-of-concept',
-}
-
-const { link, status = ProjectStatus.unknown, type } = Astro.props
-
-const getStatusColor = (status: ProjectStatus) => {
+const getStatusColor = (status: Status) => {
   switch (status) {
-    case ProjectStatus.live:
+    case 'live':
       return 'text-not-green'
-    case ProjectStatus.unknown:
-      return 'text-gray-100'
-    case ProjectStatus.wip:
+    case 'wip':
       return 'text-not-yellow'
-    case ProjectStatus.dead:
+    case 'dead':
       return 'text-not-pink'
   }
 }
 ---
 
 <li class="border border-not-gray">
-  <a class="p-4 @a:box @list-item" href={link} target="_blank">
+  <a
+    class="p-4 @a:box @list-item flex gap-1 justify-start items-center"
+    href={link}
+    target="_blank"
+  >
     <span
       class:list={[
         getStatusColor(status),
         '@pseudo:brackets @pseudo:bold:not-blue',
       ]}>{status}</span
     >
-    <span><slot /></span>
-    {type && <span class="text-not-blue">|</span>}
-    {type && <span>{type}</span>}
+    <span class="flex-shrink-0"><slot /></span>
+    {tags && <span class="text-not-blue">|</span>}
+    {tags && <span>{tags.join(', ')}</span>}
   </a>
 </li>

@@ -1,0 +1,14 @@
+---
+import Section from '@components/Section.astro'
+import SectionTitle from '@components/SectionTitle.astro'
+import { getEntryBySlug } from 'astro:content'
+const intro = await getEntryBySlug('sections', 'intro')
+const { Content } = await intro.render()
+---
+
+<Section>
+  <SectionTitle>Intro</SectionTitle>
+  <div>
+    <Content />
+  </div>
+</Section>

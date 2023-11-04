@@ -1,29 +1,57 @@
 ---
-import BlogEntrySection from '@components/sections/BlogEntrySection.astro'
+import Section from '@components/Section.astro'
+import SectionTitle from '@components/SectionTitle.astro'
+import TimeTag from '@components/TimeTag.astro'
+import { Image } from 'astro:assets'
 import MainLayout from '@layouts/MainLayout.astro'
-import type { CollectionEntry } from 'astro:content'
-import { getCollection } from 'astro:content'
+import { findAndReplaceAssetUrl, ghostClient, type Post } from '@libs/ghost'
 
 export type Props = {
-  entry: CollectionEntry<'entries'>
+  post: Post
 }
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection(
-    'entries',
-    ({ data }) =>
-      data.type === 'blog' &&
-      (data.publishDate < new Date() || import.meta.env.DEV)
-  )
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
+  const posts = await ghostClient.posts.browse({
+    limit: 'all',
+    include: ['tags'],
+  })
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post: JSON.parse(findAndReplaceAssetUrl(JSON.stringify(post))) },
   }))
 }
 
-const { entry } = Astro.props
+const { post } = Astro.props
 ---
 
-<MainLayout title={entry.data.title}>
-  <BlogEntrySection entry={entry} />
+<MainLayout title={post.title!}>
+  <Section>
+    {
+      post.feature_image && (
+        <Image
+          src={post.feature_image}
+          format={'png'}
+          alt=""
+          height={635}
+          width={952}
+          class="rounded"
+        />
+      )
+    }
+    <p class="m-0 text-xs gap-2 flex flex-row">
+      {
+        post.tags && (
+          <>
+            <span>{post.tags.map((t) => t.name!).join(', ')} </span>
+            <span class="text-not-blue">|</span>
+          </>
+        )
+      }
+      <TimeTag date={new Date(post.published_at! ?? new Date())} />
+    </p>
+    <SectionTitle>{post.title}</SectionTitle>
+    <div class="@rich-content prose prose-invert max-w-full">
+      <Fragment set:html={post.html!} />
+    </div>
+  </Section>
 </MainLayout>

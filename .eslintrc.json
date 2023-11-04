@@ -3,9 +3,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:astro/recommended",
-    "plugin:svelte/recommended",
-    "plugin:svelte/prettier"
+    "plugin:astro/recommended"
   ],
   "plugins": ["@typescript-eslint", "simple-import-sort", "unused-imports"],
   "rules": {
@@ -23,14 +21,6 @@
       },
       "rules": {
         "@typescript-eslint/no-unused-vars": ["off"]
-      }
-    },
-    {
-      "files": ["*.svelte"],
-      "parser": "svelte-eslint-parser",
-      "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [".svelte"]
       }
     }
   ]
