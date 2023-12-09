@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Mole Attack",
+    "status": "live",
+    "tags": ["proof-of-concept", "react", "threejs", "vr"],
+    "url": "https://github.com/ERNI-Academy/poc-react-webxr"
+  },
+  {
+    "title": "taylordotcat",
+    "status": "wip",
+    "tags": ["website"],
+    "url": "https://taylor.cat"
+  }
+]

@@ -1,13 +1,21 @@
-import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
 import { Section } from "../components/Section.tsx";
 import { Avatar } from "../components/Avatar.tsx";
 import { SocialIcons } from "../components/SocialIcons.tsx";
 import { SectionTitle } from "../components/SectionTitle.tsx";
+import { ContentItem } from "../components/ContentItem.tsx";
+import { findAndReplaceAssetUrl, getPosts, type Post } from "../libs/ghost.ts";
+import { defineRoute } from "$fresh/server.ts";
+import { Head } from "$fresh/runtime.ts";
+import { Project, type ProjectStatus } from "../components/Project.tsx";
+import projects from "../static/data/projects.json" with { type: "json" };
 
-export default function Home() {
+export default defineRoute(async (req, ctx) => {
+  const posts = await getPosts();
   return (
     <div>
+      <Head>
+        <title>Axel Taylor — Software Engineer. Content Creator.</title>
+      </Head>
       <Section>
         <div class="flex flex-col md:flex-row gap-4 md:gap-7 justify-start items-center text-center md:text-left">
           <div class="flex-shrink-0">
@@ -38,6 +46,34 @@ export default function Home() {
           </div>
         </div>
       </Section>
+      <Section>
+        <SectionTitle>Content</SectionTitle>
+        <div class="flex flex-col md:grid md:grid-cols-2 gap-5">
+          {posts.map((post) => (
+            <ContentItem
+              title={post.title!}
+              creationDate={new Date(post.published_at!)}
+              tags={post.tags?.map((t) => t.name!) ?? []}
+              url={`/blog/${post.slug}`}
+              cover={findAndReplaceAssetUrl(post.feature_image!)}
+            />
+          ))}
+        </div>
+      </Section>
+      <Section>
+        <SectionTitle>Projects</SectionTitle>
+        <ul class="flex flex-col gap-5">
+          {projects.map((project) => (
+            <Project
+              status={project.status as ProjectStatus}
+              tags={project.tags}
+              link={project.url}
+            >
+              {project.title}
+            </Project>
+          ))}
+        </ul>
+      </Section>
     </div>
   );
-}
+});

@@ -1,7 +1,8 @@
 import { Terminal } from "https://esm.sh/lucide-preact@0.294.0";
+import type { ComponentChildren } from "preact";
 
 type Props = {
-  children: string;
+  children: ComponentChildren;
 };
 
 export function SectionTitle({ children }: Props) {
