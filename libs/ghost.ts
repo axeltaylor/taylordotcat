@@ -7,10 +7,6 @@ const ghostKey = Deno.env.get("GHOST_KEY");
 const ghostReplaceStaticUrl = Deno.env.get("GHOST_REPLACE_STATIC_URL");
 const ghostStaticUrl = Deno.env.get("GHOST_STATIC_URL");
 
-if (!ghostUrl || !ghostKey || !ghostReplaceStaticUrl || !ghostStaticUrl) {
-  throw new Error("GHOST_URL and GHOST_KEY must be set in .env");
-}
-
 const apiUrl = `${ghostUrl}/ghost/api/v3/content`;
 
 export const getPosts = async () => {
@@ -31,7 +27,7 @@ export const getPostBySlug = async (slug: string) => {
 
 export const findAndReplaceAssetUrl = (original: string): string => {
   return original.replaceAll(
-    ghostReplaceStaticUrl,
-    ghostStaticUrl,
+    ghostReplaceStaticUrl || "",
+    ghostStaticUrl || "",
   );
 };
