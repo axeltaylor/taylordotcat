@@ -1,13 +1,15 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
 build:
-  image: docker:20.10.16
+  image: docker:24.0
   stage: build
   services:
-    - docker:20.10.16-dind
+    - docker:24-dind
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build --build-arg GIT_REVISION=$CI_COMMIT_SHA -t $IMAGE_TAG .
+    - docker context create builder
+    - docker buildx create builder --use
+    - docker buildx build --platform linux/amd64,linux/arm64 --build-arg GIT_REVISION=$CI_COMMIT_SHA -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
