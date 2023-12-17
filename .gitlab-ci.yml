@@ -6,9 +6,12 @@ build:
   services:
     - docker:24-dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    IMAGE_RELEASE_TAG: $CI_REGISTRY_IMAGE:latest
+    IMAGE_TAG: $CI_REGISTRY_IMAGE
+    BUILDPLATFORM: linux/arm64,linux/amd64
+    COMMIT_SHA: $CI_COMMIT_SHA
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context create builder
     - docker buildx create builder --use
-    - docker buildx build --platform linux/amd64,linux/arm64 --build-arg GIT_REVISION=$CI_COMMIT_SHA -t $IMAGE_TAG . --push
+    - docker buildx build . --platform $BUILDPLATFORM --build-arg GIT_REVISION=$COMMIT_SHA --tag $IMAGE_RELEASE_TAG --push
